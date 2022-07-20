@@ -45,24 +45,26 @@ type Comments = [
 
 const User = (props: { userdata: SerializableUserData }) => {
   return (
-    <main className="brownBox text-white">
-      <div className="grid place-items-center">
-        <h1
-          style={{
-            textShadow: "0.375vh 0.375vh 0vh rgba(0, 0, 0, 0.3)",
-          }}
-          className="font-pusab my-1 textStroke text-center text-4xl"
-        >
-          <Badge permission={props.userdata.permissions} />
-          <span>{props.userdata.username}</span>
-        </h1>
-        <hr className="my-2 w-full" />
-        <div className="my-2 w-full">
-          <Collectibles stats={props.userdata.stats} />
+    <main className="container mx-auto">
+      <div className="brownBox text-white">
+        <div className="grid place-items-center">
+          <h1
+            style={{
+              textShadow: "0.375vh 0.375vh 0vh rgba(0, 0, 0, 0.3)",
+            }}
+            className="font-pusab my-1 textStroke text-center text-4xl md:text-6xl"
+          >
+            <Badge permission={props.userdata.permissions} />
+            <span>{props.userdata.username}</span>
+          </h1>
+          <hr className="my-2 w-full" />
+          <div className="my-2 w-full">
+            <Collectibles stats={props.userdata.stats} />
+          </div>
+          <ul className="border-[#803E1E] border-[1px] w-full rounded-2xl overflow-scroll my-2 h-72">
+            <Comments comments={props.userdata.usercomments} />
+          </ul>
         </div>
-        <ul className="border-[#803E1E] border-[1px] w-full rounded-2xl overflow-scroll my-2 h-72">
-          <Comments comments={props.userdata.usercomments} />
-        </ul>
       </div>
     </main>
   );
@@ -120,7 +122,7 @@ const Collectibles = ({ stats }: any) => {
       style={{
         textShadow: "0.2vh 0.2vh 0vh rgba(0, 0, 0, 0.3)",
       }}
-      className="font-pusab text-2xl smallTextStroke w-full grid grid-cols-5 justify-between"
+      className="font-pusab text-2xl md:text-4xl smallTextStroke w-full grid grid-cols-5 justify-center"
     >
       <Collectible name="Stars" amount={stats.stars} source="star" />
       <Collectible name="Diamonds" amount={stats.diamonds} source="diamond" />
@@ -140,11 +142,17 @@ const Collectibles = ({ stats }: any) => {
 };
 const Collectible = ({ name, amount, source }: CollectibleProp) => {
   return (
-    <div className="grid justify-items-center gap-x-1">
-      <div className="h-8 flex items-center">
+    <div className="flex justify-center flex-col sm:flex-row gap-x-1 items-center">
+      <div className="flex items-center">
         <span>{amount}</span>
       </div>
-      <img className="h-8" src={`/${source}.png`} title={name}></img>
+      <div>
+        <img
+          className="h-8 aspect-square grow"
+          src={`/${source}.png`}
+          title={name}
+        ></img>
+      </div>
     </div>
   );
 };
@@ -181,8 +189,10 @@ const Comment = ({ author, content }: { author: string; content: string }) => {
   return (
     <li className="even:bg-[#A1582C] odd:bg-[#be6f3f] p-2 border-b-[1px] last:border-b-0 border-black">
       <div className="bg-[#934f27]/80 rounded-xl p-2">
-        <div className="font-pusab text-lg">{author}</div>
-        <p className="text-md leading-snug break-words">{content}</p>
+        <div className="font-pusab text-lg md:text-2xl">{author}</div>
+        <p className="text-md md:text-2xl leading-snug break-words py-2 md:py-4">
+          {content}
+        </p>
       </div>
     </li>
   );
