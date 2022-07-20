@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Pusab;
+  src: url("/Pusab.ttf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +11,21 @@
   body {
     @apply bg-gradient-to-b from-[#0065FD] to-[#002E73];
   }
+}
+
+.brownBox {
+  border-width: 2.5vh;
+  border-style: solid;
+  border-radius: 3vh;
+  background-color: #995533;
+  border-image: url("/brownbox.png") 10% round;
+}
+
+.textStroke {
+  -webkit-text-stroke-width: 0.25vh;
+  -webkit-text-stroke-color: black;
+}
+.smallTextStroke {
+  -webkit-text-stroke-width: 0.14vh;
+  -webkit-text-stroke-color: black;
 }
