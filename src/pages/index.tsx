@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Fragment } from "react";
 import { trpc } from "../utils/trpc";
 
 type MenuButtonProps = {
@@ -24,48 +25,16 @@ const Home: NextPage = () => {
         <div className="absolute left-0 w-full pointer-events-none">
           <img className="sticky scale-y-[-1]" src="/corner.png" width="7%" />
         </div>
-        <div className="h-full grid place-items-center">
+        <div className="absolute h-full w-full grid place-items-center">
           <div className="grid grid-cols-4 gap-x-8 gap-y-4">
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
-            <MenuButton
-              name="saved"
-              description="Saved Levels"
-              link="./search/*?type=saved"
-            />
+            <MenuButtons />
+          </div>
+        </div>
+        <div className="w-full grid place-items-center mt-4 absolute">
+          <div className="grid place-items-center gap-y-1">
+            <img src="/gdlogo.png" className="h-[11.5vh] w-auto" />
+            <br />
+            <img className="h-[7vh] place-self-end" src="/browser.png" />
           </div>
         </div>
       </main>
@@ -84,6 +53,49 @@ const MenuButton = ({ name, description, link }: MenuButtonProps) => {
         />
       </a>
     </div>
+  );
+};
+
+const MenuButtons = () => {
+  return (
+    <Fragment>
+      <MenuButton
+        name="saved"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton name="daily" description="Daily Level" link="./daily" />
+      <MenuButton
+        name="weekly"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton
+        name="gauntlets"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton
+        name="scores"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton
+        name="hof"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton
+        name="packs"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+      <MenuButton
+        name="search"
+        description="Saved Levels"
+        link="./search/*?type=saved"
+      />
+    </Fragment>
   );
 };
 
