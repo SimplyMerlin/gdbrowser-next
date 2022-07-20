@@ -178,16 +178,31 @@ const Badge = ({ permission }: { permission: Permission }) => {
 const Comments = ({ comments }: { comments: Comments }) => {
   return (
     <Fragment>
-      {comments.map((comment) => (
-        <Comment author={comment.author} content={comment.content} />
+      {comments.map((comment, index) => (
+        <Comment
+          author={comment.author}
+          content={comment.content}
+          index={index}
+        />
       ))}
     </Fragment>
   );
 };
 
-const Comment = ({ author, content }: { author: string; content: string }) => {
+const Comment = ({
+  author,
+  content,
+  index,
+}: {
+  author: string;
+  content: string;
+  index: number;
+}) => {
   return (
-    <li className="even:bg-[#A1582C] odd:bg-[#be6f3f] p-2 border-b-[1px] last:border-b-0 border-black">
+    <li
+      key={index}
+      className="even:bg-[#A1582C] odd:bg-[#be6f3f] p-2 border-b-[1px] last:border-b-0 border-black"
+    >
       <div className="bg-[#934f27]/80 rounded-xl p-2">
         <div className="font-pusab text-lg md:text-2xl">{author}</div>
         <p className="text-md md:text-2xl leading-snug break-words py-2 md:py-4">
