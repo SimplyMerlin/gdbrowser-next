@@ -8,6 +8,7 @@ import { trpc } from "../../utils/trpc";
 import GD, { Permission, Socials } from "gd.js";
 import { Fragment, useEffect, useState } from "react";
 import { getCORSProxy } from "../_app";
+import { comment } from "postcss";
 
 type CollectibleProp = {
   name: string;
@@ -32,7 +33,15 @@ type SerializableUserData = {
   };
   permissions: Permission;
   socials: Socials;
+  usercomments: Comments;
 };
+
+type Comments = [
+  {
+    author: string;
+    content: string;
+  }
+];
 
 const User = (props: { userdata: SerializableUserData }) => {
   return (
@@ -52,11 +61,7 @@ const User = (props: { userdata: SerializableUserData }) => {
           <Collectibles stats={props.userdata.stats} />
         </div>
         <ul className="border-[#803E1E] border-[1px] w-full rounded-2xl overflow-scroll my-2 h-72">
-          <Comments />
-          <Comments />
-          <Comments />
-          <Comments />
-          <Comments />
+          <Comments comments={props.userdata.usercomments} />
         </ul>
       </div>
     </main>
@@ -76,7 +81,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const gd = new GD({});
   const userdata = await gd.users.getByUsername(context.params.user);
-
+  const usercomments = await userdata.getAccountComments(10);
+  let comments: [
+    {
+      author: string;
+      content: string;
+    }
+  ] = [{} as { author: string; content: string }];
+  usercomments.forEach((x) => {
+    if (!x || !x.text) return;
+    const comment = {
+      author: userdata.username,
+      content: x.text,
+    };
+    comments.push(comment);
+  });
+  comments.shift();
   return {
     props: {
       userdata: {
@@ -86,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         stats: userdata.stats,
         permissions: userdata.permissions,
         socials: userdata.socials,
+        usercomments: comments,
       },
     },
   };
@@ -146,15 +167,22 @@ const Badge = ({ permission }: { permission: Permission }) => {
   return <img className="h-8 inline mr-1" title={description} src={src}></img>;
 };
 
-const Comments = () => {
+const Comments = ({ comments }: { comments: Comments }) => {
+  return (
+    <Fragment>
+      {comments.map((comment) => (
+        <Comment author={comment.author} content={comment.content} />
+      ))}
+    </Fragment>
+  );
+};
+
+const Comment = ({ author, content }: { author: string; content: string }) => {
   return (
     <li className="even:bg-[#A1582C] odd:bg-[#be6f3f] p-2 border-b-[1px] last:border-b-0 border-black">
       <div className="bg-[#934f27]/80 rounded-xl p-2">
-        <div className="font-pusab text-lg">SimplyMerlin</div>
-        <div className="text-md leading-snug">
-          2 years later and i finally beat my first demon this is what i call a
-          ultra flex
-        </div>
+        <div className="font-pusab text-lg">{author}</div>
+        <p className="text-md leading-snug break-words">{content}</p>
       </div>
     </li>
   );
