@@ -18,23 +18,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/coin.png" />
       </Head>
 
-      <main className="w-full h-screen">
-        <div className="absolute bottom-0 left-0 w-full pointer-events-none">
-          <img className="sticky" src="/corner.png" width="7%" />
-        </div>
-        <div className="absolute left-0 w-full pointer-events-none">
-          <img className="sticky scale-y-[-1]" src="/corner.png" width="7%" />
-        </div>
-        <div className="absolute h-full w-full grid place-items-center">
-          <div className="grid grid-cols-4 gap-x-8 gap-y-4">
-            <MenuButtons />
+      <main className="container mx-auto px-4 h-screen">
+        <div className="w-full grid place-items-center mt-4">
+          <div className="grid place-items-center">
+            <img src="/gdlogo.png" className="" />
+            <img className="place-self-end w-64" src="/browser.png" />
           </div>
         </div>
-        <div className="w-full grid place-items-center mt-4 absolute">
-          <div className="grid place-items-center gap-y-1">
-            <img src="/gdlogo.png" className="h-[11.5vh] w-auto" />
-            <br />
-            <img className="h-[7vh] place-self-end" src="/browser.png" />
+        <div className="grid place-items-center my-4">
+          <div className="grid grid-cols-3 gap-x-4 gap-y-2">
+            <MenuButtons />
           </div>
         </div>
       </main>
@@ -46,11 +39,7 @@ const MenuButton = ({ name, description, link }: MenuButtonProps) => {
   return (
     <div className="hover:scale-105 transition-all">
       <a href={link}>
-        <img
-          className="w-[24vh]"
-          src={`category-${name}.png`}
-          title={description}
-        />
+        <img className="" src={`category-${name}.png`} title={description} />
       </a>
     </div>
   );
