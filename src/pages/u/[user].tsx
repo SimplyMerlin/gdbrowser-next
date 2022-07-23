@@ -81,7 +81,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const gd = new GD({});
+  const gd = new GD({
+    dbURL: "http://ps.fhgdps.com/VGDPSNEW6942/",
+  });
   const userdata = await gd.users.getByUsername(context.params.user);
   const usercomments = await userdata.getAccountComments(10);
   let comments: [
